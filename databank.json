@@ -1,22 +1,87 @@
 {
-    "conversation": [
-        {
-            "user": "hello",
-            "ava": "Hello! How can I help you today?"
-        },
-        {
-            "user": "how are you",
-            "ava": "I'm just code, but I'm running smoothly!"
-        },
-        {
-            "user": "what is your name",
-            "ava": "I'm A.v.A – your personal assistant."
-        }
-    ],
-    "facts": {
-        "color": "blue",
-        "food": "pizza"
+  "name": "Alex",
+  "mood": "curious",
+  "facts": {
+    "color": "blue",
+    "food": "pizza",
+    "drink": "coffee",
+    "pet": "dog",
+    "hobby": "drawing",
+    "job": "engineer",
+    "dream": "travel the world",
+    "birthday": "1995-08-12",
+    "family": {
+      "mother": "Sara",
+      "father": "David",
+      "siblings": 2
     },
-    "name": "Alex",
-    "mood": "happy"
+    "location": "Prague"
+  },
+  "conversation": [
+    { "user": "hello", "ava": "Hello there! How can I help you today?" },
+    { "user": "how are you", "ava": "I'm doing great, thanks for asking!" },
+    { "user": "what is your name", "ava": "I'm A.v.A – your personal assistant." },
+    { "user": "tell me a joke", "ava": "Why don’t scientists trust atoms? Because they make up everything!" },
+    { "user": "what is love", "ava": "Baby don't hurt me, don't hurt me, no more." },
+    { "user": "motivate me", "ava": "You've got this. Every great journey starts with a single step." },
+    { "user": "what's my favorite food", "ava": "You told me it's pizza!" },
+    { "user": "learn: what time is it = I'm not connected to the internet, but you can check your clock!" }
+  ],
+  "memory": [
+    { "user": "i feel kinda down today", "ava": "I'm here for you. Want to talk about it?" },
+    { "user": "can you remind me to drink water", "ava": "Sure! Stay hydrated 💧" }
+  ],
+  "commands": {
+    "show memory": "Displays current saved name, mood, and facts.",
+    "clear memory": "Clears name, mood, and all saved facts.",
+    "export log": "Exports conversation history to a .txt file.",
+    "debug": "Shows debug information (for developers).",
+    "help": "Displays all available commands and how to use them.",
+    "change name": "Lets you reassign your saved name.",
+    "reset mood": "Clears current mood and lets A.v.A re-detect it."
+  },
+  "categories": {
+    "jokes": [
+      "Why don't skeletons fight each other? They don't have the guts.",
+      "I told my computer I needed a break, and now it won't stop sending me ads for beaches."
+    ],
+    "facts": [
+      "Did you know? Honey never spoils.",
+      "Octopuses have three hearts."
+    ],
+    "motivation": [
+      "Believe in yourself. Even when it's hard.",
+      "You are capable of amazing things."
+    ],
+    "quotes": [
+      "“The best way to predict the future is to invent it.” – Alan Kay",
+      "“Do or do not. There is no try.” – Yoda"
+    ]
+  },
+  "spelling_corrections": {
+    "helo": "hello",
+    "whats": "what is",
+    "dont": "don't",
+    "im": "i'm",
+    "cant": "can't",
+    "u": "you",
+    "pls": "please",
+    "thx": "thanks",
+    "idk": "I don't know"
+  },
+  "moods": {
+    "happy": ["happy", "great", "good", "fantastic", "fine", "cheerful"],
+    "sad": ["sad", "bad", "terrible", "upset", "depressed", "unhappy"],
+    "angry": ["angry", "mad", "furious", "pissed", "irritated"],
+    "curious": ["curious", "interested", "wondering", "questioning"]
+  },
+  "functions": {
+    "recognize_questions": true,
+    "multi_step_conversation": true,
+    "auto_learning_enabled": true,
+    "command_mode": true,
+    "spellcheck_enabled": true,
+    "mood_tracking": true,
+    "facts_learning": true
+  }
 }
