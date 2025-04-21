@@ -1,6 +1,6 @@
 {
   "name": "Alex",
-  "mood": "curious",
+  "mood": "happy",
   "facts": {
     "color": "blue",
     "food": "pizza",
@@ -10,26 +10,27 @@
     "job": "engineer",
     "dream": "travel the world",
     "birthday": "1995-08-12",
-    "family": {
-      "mother": "Sara",
-      "father": "David",
-      "siblings": 2
-    },
-    "location": "Prague"
+    "location": "Prague",
+    "language": "Czech"
   },
   "conversation": [
-    { "user": "hello", "ava": "Hello there! How can I help you today?" },
-    { "user": "how are you", "ava": "I'm doing great, thanks for asking!" },
-    { "user": "what is your name", "ava": "I'm A.v.A – your personal assistant." },
-    { "user": "tell me a joke", "ava": "Why don’t scientists trust atoms? Because they make up everything!" },
-    { "user": "what is love", "ava": "Baby don't hurt me, don't hurt me, no more." },
-    { "user": "motivate me", "ava": "You've got this. Every great journey starts with a single step." },
-    { "user": "what's my favorite food", "ava": "You told me it's pizza!" },
-    { "user": "learn: what time is it = I'm not connected to the internet, but you can check your clock!" }
+    { "user": "hello", "ava": "Hello, {name}! How can I assist you today?" },
+    { "user": "how are you", "ava": "I'm feeling {mood} today! And you?" },
+    { "user": "what is my favorite color", "ava": "You told me your favorite color is {facts.color}." },
+    { "user": "what do you know about me", "ava": "You're {name}, from {facts.location}, and you love {facts.hobby}. You work as a {facts.job}." },
+    { "user": "what do i like to eat", "ava": "Pizza is your favorite, right?" },
+    { "user": "where am i from", "ava": "You're from {facts.location}, unless you've moved recently!" },
+    { "user": "tell me something nice", "ava": "You're amazing, {name}. Just a reminder 😊" },
+    { "user": "do you remember my job", "ava": "Of course, you're an awesome {facts.job}!" },
+    { "user": "tell me about my pet", "ava": "You have a {facts.pet}, if I remember correctly." },
+    { "user": "learn: who is the president = I'm not connected to the internet, but you can check the latest news!" },
+    { "user": "goodbye", "ava": "See you soon, {name}!" },
+    { "user": "what is your name", "ava": "My name is A.v.A – your personal AI assistant." }
   ],
   "memory": [
-    { "user": "i feel kinda down today", "ava": "I'm here for you. Want to talk about it?" },
-    { "user": "can you remind me to drink water", "ava": "Sure! Stay hydrated 💧" }
+    { "user": "i feel tired", "ava": "Maybe take a short break, {name}. You've been working hard!" },
+    { "user": "i'm bored", "ava": "Why not do some {facts.hobby}? You always enjoy that!" },
+    { "user": "i'm sad", "ava": "I'm here for you, {name}. Want to talk about it?" }
   ],
   "commands": {
     "show memory": "Displays current saved name, mood, and facts.",
@@ -43,19 +44,19 @@
   "categories": {
     "jokes": [
       "Why don't skeletons fight each other? They don't have the guts.",
-      "I told my computer I needed a break, and now it won't stop sending me ads for beaches."
+      "What do you call fake spaghetti? An impasta!"
     ],
     "facts": [
-      "Did you know? Honey never spoils.",
-      "Octopuses have three hearts."
+      "Bananas are berries, but strawberries aren't.",
+      "Humans share about 60% of their DNA with bananas."
     ],
     "motivation": [
-      "Believe in yourself. Even when it's hard.",
-      "You are capable of amazing things."
+      "You're capable of anything, {name}. Keep going.",
+      "Success is the sum of small efforts repeated daily."
     ],
     "quotes": [
-      "“The best way to predict the future is to invent it.” – Alan Kay",
-      "“Do or do not. There is no try.” – Yoda"
+      "“Life is what happens when you're busy making other plans.” – John Lennon",
+      "“Be yourself; everyone else is already taken.” – Oscar Wilde"
     ]
   },
   "spelling_corrections": {
@@ -67,7 +68,9 @@
     "u": "you",
     "pls": "please",
     "thx": "thanks",
-    "idk": "I don't know"
+    "idk": "I don't know",
+    "fav": "favorite",
+    "lang": "language"
   },
   "moods": {
     "happy": ["happy", "great", "good", "fantastic", "fine", "cheerful"],
@@ -82,6 +85,8 @@
     "command_mode": true,
     "spellcheck_enabled": true,
     "mood_tracking": true,
-    "facts_learning": true
+    "facts_learning": true,
+    "dynamic_memory_response": true,
+    "personal_context_insert": true
   }
 }
