@@ -1,0 +1,22 @@
+{
+    "conversation": [
+        {
+            "user": "hello",
+            "ava": "Hello! How can I help you today?"
+        },
+        {
+            "user": "how are you",
+            "ava": "I'm just code, but I'm running smoothly!"
+        },
+        {
+            "user": "what is your name",
+            "ava": "I'm A.v.A – your personal assistant."
+        }
+    ],
+    "facts": {
+        "color": "blue",
+        "food": "pizza"
+    },
+    "name": "Alex",
+    "mood": "happy"
+}
