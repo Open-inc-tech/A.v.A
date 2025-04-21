@@ -1,58 +1,72 @@
 import json
 import os
+import re
+from datetime import datetime
 
-# Initialize database path
-db_path = "databank.json"
+# === CONFIG ===
+DB_PATH = "databank.json"
+LOG_PATH = "chatlog.txt"
+CONTEXT_LIMIT = 5
 
-# Create default databank if it doesn't exist
+# === DEFAULT DATABASE ===
 default_db = {
     "conversation": [],
     "facts": {},
     "name": "",
-    "mood": ""
+    "mood": "",
+    "context": []
 }
 
-if not os.path.exists(db_path):
-    with open(db_path, "w") as f:
+# === INIT DATABASE ===
+if not os.path.exists(DB_PATH):
+    with open(DB_PATH, "w") as f:
         json.dump(default_db, f, indent=4)
 
-# Load databank
+# === LOAD & SAVE DB ===
 def load_db():
-    with open(db_path, "r") as f:
+    with open(DB_PATH, "r") as f:
         return json.load(f)
 
-# Save databank
 def save_db(data):
-    with open(db_path, "w") as f:
+    with open(DB_PATH, "w") as f:
         json.dump(data, f, indent=4)
 
-# Log conversation
+# === LOGGING ===
 def log_conversation(user, bot):
     db = load_db()
-    db["conversation"].append({"user": user, "ava": bot})
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    db["conversation"].append({"time": timestamp, "user": user, "ava": bot})
+
+    # Context memory update
+    db["context"].append({"user": user, "ava": bot})
+    if len(db["context"]) > CONTEXT_LIMIT:
+        db["context"].pop(0)
+
     save_db(db)
 
-# Analyze user input
-def analyze_input(text):
-    text = correct_spelling(text)
-    detect_name(text)
-    detect_mood(text)
-    remember_facts(text)
-    return text
+# === SPELLING CORRECTION ===
+def correct_spelling(text):
+    corrections = {
+        "helo": "hello", "whats": "what is", "dont": "don't",
+        "im": "i'm", "cant": "can't", "u": "you", "pls": "please",
+        "thx": "thanks", "tnx": "thanks", "fav": "favorite"
+    }
+    words = text.split()
+    corrected = [corrections.get(w.lower(), w) for w in words]
+    return " ".join(corrected)
 
-# Detect user's name
+# === DETECT NAME ===
 def detect_name(text):
     db = load_db()
-    triggers = ["my name is", "i am", "i'm"]
-    for trig in triggers:
-        if trig in text.lower():
-            name = text.lower().split(trig)[-1].strip().split(" ")[0]
-            db["name"] = name.capitalize()
-            save_db(db)
-            return name.capitalize()
+    match = re.search(r"\b(my name is|i am|i'm)\s+([A-Za-z]+)", text, re.IGNORECASE)
+    if match:
+        name = match.group(2).capitalize()
+        db["name"] = name
+        save_db(db)
+        return name
     return None
 
-# Detect user's mood
+# === DETECT MOOD ===
 def detect_mood(text):
     db = load_db()
     moods = {
@@ -61,44 +75,27 @@ def detect_mood(text):
         "angry": ["angry", "mad", "furious", "pissed"]
     }
     for mood, keywords in moods.items():
-        for word in keywords:
-            if word in text.lower():
-                db["mood"] = mood
-                save_db(db)
-                return mood
+        if any(word in text.lower() for word in keywords):
+            db["mood"] = mood
+            save_db(db)
+            return mood
     return None
 
-# Simple spelling correction
-def correct_spelling(text):
-    corrections = {
-        "helo": "hello",
-        "whats": "what is",
-        "dont": "don't",
-        "im": "i'm",
-        "cant": "can't",
-        "u": "you"
-    }
-    words = text.split()
-    corrected = [corrections.get(w.lower(), w) for w in words]
-    return " ".join(corrected)
-
-# Remember user's facts
+# === REMEMBER FACTS ===
 def remember_facts(text):
     db = load_db()
-    if "my favorite" in text.lower():
-        parts = text.lower().split("my favorite")[-1].strip().split("is")
-        if len(parts) == 2:
-            key = parts[0].strip()
-            value = parts[1].strip()
-            db["facts"][key] = value
-            save_db(db)
+    match = re.search(r"my favorite (\w+) is (\w+)", text.lower())
+    if match:
+        key, value = match.groups()
+        db["facts"][key] = value
+        save_db(db)
 
-# Learn new responses
+# === AUTO LEARNING ===
 def auto_learn(user_input):
     db = load_db()
     if "learn:" in user_input.lower():
         try:
-            parts = user_input.lower().split("learn:")[1].strip().split("=")
+            parts = user_input.split("learn:")[1].strip().split("=")
             question = parts[0].strip().lower()
             answer = parts[1].strip()
             db["conversation"].append({"user": question, "ava": answer})
@@ -108,36 +105,119 @@ def auto_learn(user_input):
             return "Use this format to teach me: learn: question = answer"
     return None
 
-# Main chat loop
+# === DETECT INTENT ===
+def detect_intent(text):
+    text = text.lower()
+    if any(word in text for word in ["hello", "hi", "hey"]):
+        return "Hello! How can I help you?"
+    if "thank" in text:
+        return "You're welcome!"
+    if any(word in text for word in ["bye", "goodbye", "see you"]):
+        return "Goodbye! Take care!"
+    return None
+
+# === COMMANDS ===
+def process_command(text):
+    db = load_db()
+    if text == "show memory":
+        facts = "\n".join([f"- {k}: {v}" for k, v in db["facts"].items()])
+        return (
+            f"Name: {db['name'] or 'Unknown'}\n"
+            f"Mood: {db['mood'] or 'Unknown'}\n"
+            f"Facts:\n{facts if facts else 'No facts saved.'}"
+        )
+    elif text == "clear memory":
+        save_db(default_db.copy())
+        return "All memory has been cleared."
+    elif text == "export log":
+        with open(LOG_PATH, "w") as f:
+            for entry in db["conversation"]:
+                f.write(f"{entry['time']} | You: {entry['user']}\n")
+                f.write(f"{entry['time']} | A.v.A: {entry['ava']}\n\n")
+        return f"Conversation log saved to {LOG_PATH}."
+    return None
+
+# === QUESTION / COMMAND DETECTION ===
+def analyze_input_type(text):
+    if text.endswith("?") or re.match(r"(what|who|why|how|when|where)\b", text.lower()):
+        return "question"
+    elif re.match(r"(tell|show|say|give|do|make|remind|list|open)\b", text.lower()):
+        return "command"
+    else:
+        return "statement"
+
+# === CONTEXTUAL RESPONSE HELP ===
+def get_last_topic():
+    db = load_db()
+    if db["context"]:
+        last = db["context"][-1]
+        return last["user"]
+    return None
+
+# === ANALYZE INPUT ===
+def analyze_input(text):
+    text = correct_spelling(text)
+    detect_name(text)
+    detect_mood(text)
+    remember_facts(text)
+    return text
+
+# === MAIN CHAT ===
 def chat():
-    print("A.v.A is ready. Type 'exit' to quit.")
+    print("🟢 A.v.A is running (Gen 3.2). Type 'exit' to quit.")
     while True:
-        user_input = input("You: ")
+        user_input = input("You: ").strip()
         if user_input.lower() == "exit":
             print("A.v.A: Goodbye!")
             break
 
-        response = auto_learn(user_input)
-        if response:
-            print("A.v.A:", response)
-            log_conversation(user_input, response)
+        # Special commands
+        command_result = process_command(user_input.lower())
+        if command_result:
+            print("A.v.A:", command_result)
+            log_conversation(user_input, command_result)
             continue
 
-        processed = analyze_input(user_input)
+        # Learning new response
+        learned = auto_learn(user_input)
+        if learned:
+            print("A.v.A:", learned)
+            log_conversation(user_input, learned)
+            continue
 
-        # Find matching response
+        # Analyze + prepare response
+        processed = analyze_input(user_input)
+        input_type = analyze_input_type(processed)
         db = load_db()
-        response = "I'm not sure how to respond to that yet."
+        response = None
+
+        # Check for matching learned input
         for entry in db["conversation"]:
             if entry["user"].lower() == processed.lower():
                 response = entry["ava"]
                 break
 
-        # Personalize
+        # Context fallback
+        if not response and input_type == "question":
+            last_topic = get_last_topic()
+            if last_topic:
+                response = f"You mentioned '{last_topic}'. Can you tell me more?"
+        
+        # Intent fallback
+        if not response:
+            response = detect_intent(processed)
+
+        # Final fallback
+        if not response:
+            response = "I'm not sure how to respond to that yet."
+
+        # Personalization
         if db["name"]:
             response = f"{db['name']}, {response}"
 
         log_conversation(user_input, response)
         print("A.v.A:", response)
 
-chat()
+# === RUN ===
+if __name__ == "__main__":
+    chat()
