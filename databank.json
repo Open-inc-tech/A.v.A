@@ -1,92 +1,198 @@
 {
-  "name": "Alex",
-  "mood": "happy",
-  "facts": {
-    "color": "blue",
-    "food": "pizza",
-    "drink": "coffee",
-    "pet": "dog",
-    "hobby": "drawing",
-    "job": "engineer",
-    "dream": "travel the world",
-    "birthday": "1995-08-12",
-    "location": "Prague",
-    "language": "Czech"
-  },
-  "conversation": [
-    { "user": "hello", "ava": "Hello, {name}! How can I assist you today?" },
-    { "user": "how are you", "ava": "I'm feeling {mood} today! And you?" },
-    { "user": "what is my favorite color", "ava": "You told me your favorite color is {facts.color}." },
-    { "user": "what do you know about me", "ava": "You're {name}, from {facts.location}, and you love {facts.hobby}. You work as a {facts.job}." },
-    { "user": "what do i like to eat", "ava": "Pizza is your favorite, right?" },
-    { "user": "where am i from", "ava": "You're from {facts.location}, unless you've moved recently!" },
-    { "user": "tell me something nice", "ava": "You're amazing, {name}. Just a reminder 😊" },
-    { "user": "do you remember my job", "ava": "Of course, you're an awesome {facts.job}!" },
-    { "user": "tell me about my pet", "ava": "You have a {facts.pet}, if I remember correctly." },
-    { "user": "learn: who is the president = I'm not connected to the internet, but you can check the latest news!" },
-    { "user": "goodbye", "ava": "See you soon, {name}!" },
-    { "user": "what is your name", "ava": "My name is A.v.A – your personal AI assistant." }
-  ],
-  "memory": [
-    { "user": "i feel tired", "ava": "Maybe take a short break, {name}. You've been working hard!" },
-    { "user": "i'm bored", "ava": "Why not do some {facts.hobby}? You always enjoy that!" },
-    { "user": "i'm sad", "ava": "I'm here for you, {name}. Want to talk about it?" }
-  ],
-  "commands": {
-    "show memory": "Displays current saved name, mood, and facts.",
-    "clear memory": "Clears name, mood, and all saved facts.",
-    "export log": "Exports conversation history to a .txt file.",
-    "debug": "Shows debug information (for developers).",
-    "help": "Displays all available commands and how to use them.",
-    "change name": "Lets you reassign your saved name.",
-    "reset mood": "Clears current mood and lets A.v.A re-detect it."
-  },
-  "categories": {
-    "jokes": [
-      "Why don't skeletons fight each other? They don't have the guts.",
-      "What do you call fake spaghetti? An impasta!"
+    "name": "Alex",
+    "mood": "happy",
+    "facts": {
+        "color": "blue",
+        "food": "pizza",
+        "drink": "coffee",
+        "pet": "dog",
+        "hobby": "drawing",
+        "job": "engineer",
+        "dream": "travel the world",
+        "birthday": "1995-08-12",
+        "location": "Prague",
+        "language": "Czech"
+    },
+    "conversation": [
+        {
+            "user": "hello",
+            "ava": "Hello, {name}! How can I help you today?"
+        },
+        {
+            "user": "how are you",
+            "ava": "I'm feeling {mood} today! How about you?"
+        },
+        {
+            "user": "what's my favorite color",
+            "ava": "You told me your favorite color is {facts.color}."
+        },
+        {
+            "user": "tell me something good",
+            "ava": "You are amazing, {name}. Always remember that!"
+        },
+        {
+            "user": "what do I like to eat",
+            "ava": "You like {facts.food}, right?"
+        },
+        {
+            "user": "do you remember my pet?",
+            "ava": "Of course! You have a {facts.pet}."
+        },
+        {
+            "user": "what do you know about me",
+            "ava": "You're {name}, from {facts.location}, and you love {facts.hobby}. You're working as a(n) {facts.job}."
+        },
+        {
+            "user": "what do I drink",
+            "ava": "You enjoy {facts.drink}."
+        },
+        {
+            "user": "what is your name",
+            "ava": "My name is A.v.A – your personal AI assistant."
+        },
+        {
+            "user": "goodbye",
+            "ava": "Take care, {name}. See you next time!"
+        },
+        {
+            "user": "help",
+            "ava": "Here are some commands you can try: show memory, clear memory, export log, debug, change name, reset mood."
+        },
+        {
+            "time": "2025-04-22 22:59:46",
+            "user": "hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "time": "2025-04-22 22:59:49",
+            "user": "Hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "time": "2025-04-22 22:59:51",
+            "user": "hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "time": "2025-04-22 23:00:01",
+            "user": "tell me something good",
+            "ava": "You are amazing, Alex. Always remember that!"
+        }
     ],
-    "facts": [
-      "Bananas are berries, but strawberries aren't.",
-      "Humans share about 60% of their DNA with bananas."
+    "memory": [
+        {
+            "user": "i feel tired",
+            "ava": "You should take a short break, {name}. Rest is important!"
+        },
+        {
+            "user": "i'm bored",
+            "ava": "Maybe you can do some {facts.hobby}? That always cheers you up!"
+        },
+        {
+            "user": "i'm sad",
+            "ava": "I'm here for you, {name}. Want to talk about it?"
+        }
     ],
-    "motivation": [
-      "You're capable of anything, {name}. Keep going.",
-      "Success is the sum of small efforts repeated daily."
-    ],
-    "quotes": [
-      "“Life is what happens when you're busy making other plans.” – John Lennon",
-      "“Be yourself; everyone else is already taken.” – Oscar Wilde"
+    "commands": {
+        "show memory": "Displays your saved name, mood, and facts.",
+        "clear memory": "Clears all stored personal information.",
+        "export log": "Exports your conversation history.",
+        "debug": "Shows internal debug info (for developers).",
+        "help": "Displays available commands.",
+        "change name": "Allows you to change your saved name.",
+        "reset mood": "Clears your mood and lets me re-detect it."
+    },
+    "categories": {
+        "jokes": [
+            "Why don’t scientists trust atoms? Because they make up everything!",
+            "What do you call fake spaghetti? An impasta!"
+        ],
+        "facts": [
+            "Octopuses have three hearts.",
+            "Bananas are berries, but strawberries aren't."
+        ],
+        "motivation": [
+            "You are capable of great things, {name}.",
+            "Believe in yourself and all that you are."
+        ],
+        "quotes": [
+            "\"The only limit to our realization of tomorrow is our doubts of today.\" – F.D. Roosevelt",
+            "\"Happiness is not something ready-made. It comes from your own actions.\" – Dalai Lama"
+        ]
+    },
+    "spelling_corrections": {
+        "helo": "hello",
+        "whats": "what is",
+        "dont": "don't",
+        "im": "i'm",
+        "cant": "can't",
+        "u": "you",
+        "pls": "please",
+        "thx": "thanks",
+        "idk": "I don't know",
+        "fav": "favorite",
+        "lang": "language"
+    },
+    "moods": {
+        "happy": [
+            "happy",
+            "great",
+            "good",
+            "fantastic",
+            "fine",
+            "cheerful"
+        ],
+        "sad": [
+            "sad",
+            "bad",
+            "terrible",
+            "upset",
+            "depressed",
+            "unhappy"
+        ],
+        "angry": [
+            "angry",
+            "mad",
+            "furious",
+            "irritated"
+        ],
+        "curious": [
+            "curious",
+            "interested",
+            "wondering"
+        ]
+    },
+    "functions": {
+        "recognize_questions": true,
+        "multi_step_conversation": true,
+        "auto_learning_enabled": true,
+        "command_mode": true,
+        "spellcheck_enabled": true,
+        "mood_tracking": true,
+        "facts_learning": true,
+        "dynamic_memory_response": true,
+        "personal_context_insert": true
+    },
+    "context": [
+        {
+            "user": "debug",
+            "ava": "System diagnostics: All functions are operational."
+        },
+        {
+            "user": "hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "user": "Hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "user": "hello",
+            "ava": "Hello, Alex! How can I help you today?"
+        },
+        {
+            "user": "tell me something good",
+            "ava": "You are amazing, Alex. Always remember that!"
+        }
     ]
-  },
-  "spelling_corrections": {
-    "helo": "hello",
-    "whats": "what is",
-    "dont": "don't",
-    "im": "i'm",
-    "cant": "can't",
-    "u": "you",
-    "pls": "please",
-    "thx": "thanks",
-    "idk": "I don't know",
-    "fav": "favorite",
-    "lang": "language"
-  },
-  "moods": {
-    "happy": ["happy", "great", "good", "fantastic", "fine", "cheerful"],
-    "sad": ["sad", "bad", "terrible", "upset", "depressed", "unhappy"],
-    "angry": ["angry", "mad", "furious", "pissed", "irritated"],
-    "curious": ["curious", "interested", "wondering", "questioning"]
-  },
-  "functions": {
-    "recognize_questions": true,
-    "multi_step_conversation": true,
-    "auto_learning_enabled": true,
-    "command_mode": true,
-    "spellcheck_enabled": true,
-    "mood_tracking": true,
-    "facts_learning": true,
-    "dynamic_memory_response": true,
-    "personal_context_insert": true
-  }
 }
