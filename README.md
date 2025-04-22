@@ -1,6 +1,4 @@
-──────────────────────────────────────────────
-     A.v.A – Personal Offline AI Assistant
-──────────────────────────────────────────────
+ A.v.A – Personal Offline AI Assistant
 
 A.v.A is a lightweight, fully offline personal chatbot you can run locally.  
 It’s designed to be YOUR AI – customizable, private, and always learning.
